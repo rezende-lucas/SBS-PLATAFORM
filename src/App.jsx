@@ -34,30 +34,13 @@ function App() {
     const saved = localStorage.getItem('sbs_history');
     if (saved) {
       let parsed = JSON.parse(saved);
-      // Migration: se tiver os dados fictícios "Week 1", "Current", etc, convertemos para datas reais passadas
+      // Migration: se ainda tiver os dados fictícios antigos "Week 1", etc, limpamos.
       if (parsed.some(item => typeof item.date === 'string' && (item.date.includes('Week') || item.date === 'Current'))) {
-        const now = new Date();
-        parsed = parsed.map((item, index) => {
-          const d = new Date(now);
-          d.setDate(now.getDate() - (parsed.length - 1 - index) * 7); // Volta 7 dias para cada item anterior
-          return { ...item, date: formatDate(d) };
-        });
+        return [];
       }
       return parsed;
     }
-
-    // Default history com datas reais de semanas anteriores
-    const now = new Date();
-    const w3 = new Date(now); w3.setDate(now.getDate() - 21);
-    const w2 = new Date(now); w2.setDate(now.getDate() - 14);
-    const w1 = new Date(now); w1.setDate(now.getDate() - 7);
-
-    return [
-      { date: formatDate(w3), squat: 85, bench: 70, deadlift: 105 },
-      { date: formatDate(w2), squat: 90, bench: 75, deadlift: 110 },
-      { date: formatDate(w1), squat: 95, bench: 75, deadlift: 115 },
-      { date: formatDate(now), squat: 100, bench: 80, deadlift: 120 },
-    ];
+    return [];
   })
 
   const [activeWorkout, setActiveWorkout] = useState(null)

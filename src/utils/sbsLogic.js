@@ -2,7 +2,7 @@ export function calculateNextMax(currentMax, percentage, reps) {
   let increase = 0;
   
   // Progressions based on AMAP sets
-  if (percentage === 0.75) {
+  if (percentage <= 0.75) {
     if (reps <= 10) increase = 0;
     else if (reps >= 11 && reps <= 12) increase = 5;
     else if (reps >= 13) increase = 10;

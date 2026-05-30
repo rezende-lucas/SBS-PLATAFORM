@@ -20,8 +20,8 @@ export default function WorkoutSession({ workoutType, maxes, onFinish, onCancel 
     setSets(populatedSets);
   }, [programId, dayIndex, currentMax]);
 
-  const completeSet = (id, reps) => {
-    setSets(sets.map(s => s.id === id ? { ...s, completed: true, repsDone: reps } : s));
+  const completeSet = (id, reps, isCompleted = true) => {
+    setSets(sets.map(s => s.id === id ? { ...s, completed: isCompleted, repsDone: reps } : s));
   };
 
   const handleFinish = () => {
@@ -71,9 +71,14 @@ export default function WorkoutSession({ workoutType, maxes, onFinish, onCancel 
             </div>
 
             {set.completed ? (
-              <div className="flex items-center gap-2" style={{ color: 'var(--accent-success)', fontWeight: 'bold' }}>
+              <button 
+                className="flex items-center gap-2 btn" 
+                style={{ color: 'var(--accent-success)', fontWeight: 'bold', background: 'transparent', padding: '8px' }}
+                onClick={() => completeSet(set.id, 0, false)}
+                title="Click to undo"
+              >
                 <CheckCircle size={20} /> {set.repsDone} reps
-              </div>
+              </button>
             ) : (
               <div className="flex items-center gap-2">
                 {set.type === 'amap' ? (
