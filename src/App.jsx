@@ -84,6 +84,19 @@ function App() {
     setCurrentView('dashboard')
   }
 
+  const resetData = () => {
+    if (window.confirm("Você tem certeza que deseja resetar TUDO? Isso vai apagar todo o seu histórico, training maxes e seleções de programas. Essa ação não pode ser desfeita.")) {
+      localStorage.removeItem('sbs_maxes');
+      localStorage.removeItem('sbs_programs');
+      localStorage.removeItem('sbs_history');
+      
+      setMaxes({ squat: 100, bench: 80, deadlift: 120 });
+      setSelectedPrograms({ squat: 'sq_1x_beg', bench: 'bn_2x_beg', deadlift: 'dl_1x_beg' });
+      setMaxHistory([]);
+      setCurrentView('dashboard');
+    }
+  }
+
   return (
     <div className="app-container">
       <Navbar currentView={currentView} setView={setCurrentView} />
@@ -109,6 +122,7 @@ function App() {
               setSelectedPrograms(newProgs)
               setCurrentView('dashboard')
             }}
+            onReset={resetData}
           />
         )}
         

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { LIFT_PROGRAMS } from '../data/programsData';
-import { Save } from 'lucide-react';
+import { Save, Trash2 } from 'lucide-react';
 
-export default function ProgramSelector({ selectedPrograms, onSave }) {
+export default function ProgramSelector({ selectedPrograms, onSave, onReset }) {
   const [selections, setSelections] = useState(selectedPrograms);
 
   const handleChange = (lift, programId) => {
@@ -42,9 +42,15 @@ export default function ProgramSelector({ selectedPrograms, onSave }) {
         </section>
       ))}
 
-      <button className="btn btn-primary mt-4" style={{ padding: '16px', fontSize: '16px' }} onClick={handleSave}>
-        <Save size={20} /> Save Configuration
-      </button>
+      <div className="flex justify-between items-center mt-4">
+        <button className="btn btn-primary" style={{ padding: '16px', fontSize: '16px' }} onClick={handleSave}>
+          <Save size={20} /> Save Configuration
+        </button>
+        
+        <button className="btn" style={{ padding: '16px', fontSize: '16px', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--accent-danger)' }} onClick={onReset}>
+          <Trash2 size={20} /> Reset Data
+        </button>
+      </div>
     </div>
   );
 }
